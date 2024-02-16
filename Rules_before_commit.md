@@ -17,6 +17,8 @@ git commit -m "feat(UI): added button component"
 
 feat: The new feature you are adding to a particular application
 
+update: If anything is updated 
+
 fix: A bug fix
 
 style: Feature and updates related to styling
