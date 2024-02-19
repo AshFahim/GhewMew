@@ -20,7 +20,7 @@ from fastapi import HTTPException
 from datatype.UserModel import UserModel_Signup, UserModel_Login, UserModel_Remove
 
 # Models
-from model.register_user import RegisterUser
+from auth.model.register_user import RegisterUser
 from model.authenticate_user import AuthenticateUser
 
 # Controllers
