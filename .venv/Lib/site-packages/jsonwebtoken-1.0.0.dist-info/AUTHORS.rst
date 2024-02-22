@@ -1,0 +1,6 @@
+Authors
+=======
+
+``jsonwebtoken`` is currently written and maintained by `jo-project <https://github.com/jo-project>`_.
+From from `@jpadilla <https://github.com/jpadilla/pyjwt>`_.
+Originally written and maintained by `Jeff Lindsay <https://github.com/progrium>`_.

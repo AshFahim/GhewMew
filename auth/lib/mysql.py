@@ -7,46 +7,51 @@ import os
 config   = dotenv_values(".env")
 # config["DB_HOST"][0]
 
-""" connection =  MySQLdb.connect(
-        host     = str(config["DB_HOST"]), # os.environ.get("HOST"),
-        user     = str(config["DB_USERNAME"]), # os.environ.get("USERNAMER"),
-        passwd   = str(config["DB_PASSWORD"]), # os.environ.get("PASSWORD"),
-        db       = str(config["DB_NAME"]), # os.environ.get("DATABASE"),
-        autocommit = True,
-        ssl_mode = "VERIFY_IDENTITY",
-        ssl      = {
-          "ca": "etc/ssl/cacert.pem"
-        }
-    ) """
-    
-def connect_to_db():
-    # Load environment variables from .env file
-    load_dotenv()
-    
-    # Get database configuration from environment variables
-    db_host = os.environ.get("DB_HOST")
-    db_username = os.environ.get("DB_USERNAME")
-    db_password = os.environ.get("DB_PASSWORD")
-    db_name = os.environ.get("DB_NAME")
-    
-    # Create a MySQL connection
-    connection = MySQLdb.connect(
-        host=db_host,
-        user=db_username,
-        passwd=db_password,
-        db=db_name,
-        autocommit=True,
-        ssl_mode="VERIFY_IDENTITY",
-        ssl={
-            "ca": "etc/ssl/cacert.pem"
-        }
-    )
-        
-        # Return the connection object
-    return connection
-    
-cursor = connect_to_db.cursor()
 
+connection = MySQLdb.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="ghewmew"
+)
+
+cursor = connection.cursor()
+
+# Check if connection is okay
+if connection:
+    print("Database Connection successful")
+else:
+    print("Database Connection unsuccessful")
+
+# Print all tables of the database
+cursor.execute("SHOW TABLES")
+tables = cursor.fetchall()
+for table in tables:
+    print(table[0])
+    
+    
 def __test__():
   if connection: print("Database Connection successful"); return True
-  else: print("Database Connection unsuccessful"); return False
+  else: print("Database Connection unsuccessful"); return False 
+  
+  
+# Check if Users table exists
+cursor.execute("SHOW TABLES LIKE 'Users'")
+table_exists = cursor.fetchone()
+
+# If Users table does not exist, create it
+if not table_exists:
+    create_table_query = """
+    CREATE TABLE Users (
+        serial INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255),
+        email VARCHAR(255),
+        password VARCHAR(255),
+        user_type VARCHAR(255),
+        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """
+    cursor.execute(create_table_query)
+    print("Users table created successfully")
+else:
+    print("Users table already exists")

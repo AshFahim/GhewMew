@@ -1,6 +1,6 @@
 import uvicorn 
 from fastapi import FastAPI
-from auth.model.model import PostSchema
+from model.model import PostSchema
 
 app = FastAPI()
 @app.get("/",tags=["test"])
@@ -20,7 +20,7 @@ from fastapi import HTTPException
 from datatype.UserModel import UserModel_Signup, UserModel_Login, UserModel_Remove
 
 # Models
-from auth.model.register_user import RegisterUser
+from model.register_user import RegisterUser
 from model.authenticate_user import AuthenticateUser
 
 # Controllers
