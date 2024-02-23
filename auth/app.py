@@ -6,7 +6,7 @@ app = FastAPI()
 @app.get("/",tags=["test"])
 
 def greet():
-    return{"helloL World"}
+    return{"Auth server is running"}
 
 from fastapi import *
 from lib.mysql import __test__, cursor
@@ -83,7 +83,7 @@ def generate_unique_token(user_type):
 #D07.10.23<
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Auth server is running"}
 
 # login/admin
 # login/employee
