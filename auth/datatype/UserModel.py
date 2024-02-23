@@ -18,3 +18,5 @@ class UserModel_Login(BaseModel):
 
 class UserModel_Remove(BaseModel):
     id: str
+
+
