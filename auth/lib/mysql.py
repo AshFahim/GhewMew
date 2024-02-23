@@ -12,7 +12,8 @@ connection = MySQLdb.connect(
     host="localhost",
     user="root",
     password="",
-    database="ghewmew"
+    database="ghewmew",
+    autocommit = True
 )
 
 cursor = connection.cursor()
@@ -43,15 +44,17 @@ table_exists = cursor.fetchone()
 if not table_exists:
     create_table_query = """
     CREATE TABLE Users (
-        serial INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255),
-        email VARCHAR(255),
-        password VARCHAR(255),
-        user_type VARCHAR(255),
-        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-    """
+    serial INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    user_type VARCHAR(255),
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+"""
     cursor.execute(create_table_query)
     print("Users table created successfully")
 else:
     print("Users table already exists")
+
+
