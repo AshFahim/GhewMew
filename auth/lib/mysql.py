@@ -45,10 +45,10 @@ if not table_exists:
     create_table_query = """
     CREATE TABLE Users (
     serial INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    email VARCHAR(64) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    user_type VARCHAR(255),
+    user_type VARCHAR(16),
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 """
@@ -58,3 +58,6 @@ else:
     print("Users table already exists")
 
 
+def __test__():
+  if connection: print("Database Connection successful"); return True
+  else: print("Database Connection unsuccessful"); return False
