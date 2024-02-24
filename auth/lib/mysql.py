@@ -47,7 +47,7 @@ if not table_exists:
     serial INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(64) NOT NULL,
     email VARCHAR(64) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     user_type VARCHAR(16),
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
