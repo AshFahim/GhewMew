@@ -1,0 +1,232 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url("background-1.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+header {
+    background-color: #051904;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+
+    display: block;
+    list-style-type: disc;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+header .navigation ul {
+    float: right;
+    margin-right: 20px;
+}
+
+header .navigation ul li {
+    display: inline-block;
+    line-height: 50px;
+    margin: 0 5px;
+}
+
+    header .navigation ul li a {
+        position: relative;
+        font-size: 1.1em;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        margin-left: 40px;
+        padding: 7px 13px;
+        border-radius: 3px;
+        text-transform: uppercase;
+    }
+    
+header .navigation ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    border-radius: 5px;
+    transform-origin: 50% 50%;
+    transform: scaleX(0);
+    transition: transform .5s;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    background: linear-gradient(to right, #fff, #f3f3f3);
+}
+
+header .navigation ul li a:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+header .navigation ul li .btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+header .navigation ul li .btnLogin-popup:hover {
+    background-color: #05190A;
+    color: #fff;
+}
+
+ul li a.active, ul li a:hover {
+    background: #05190A;
+    transition: 0.5s;
+}
+
+.check_btn {
+    font-size: 25px;
+    
+    color:white;
+    float: left;
+    line-height: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+    display: none;
+}
+
+#check{
+    display: none;
+}
+
+@media (max-width: 858px) {
+    .check_btn {
+        display: block;
+    }
+
+    ul {
+        position: fixed;
+        width: 50%;
+        height: 70vh;
+        background: #2c5038;
+        top: 100px;
+        left: -100%;
+        text-align: left;
+        transition: all .5s;
+        border: 2px solid #C9CBCB;
+        border-radius: 6px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    }
+    header .navigation ul li {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+    
+    header .navigation ul li a {
+        font-size: 20px;
+    }
+    
+    #check:checked ~ ul {
+        left: 0;
+    }
+}
+
+
+/* logo */
+
+.logo{
+    color: white;
+    user-select: none;
+    font-size: 25px;
+    line-height: 50px;
+    padding: 0 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+
+}
+
+/* .logo{
+position:left;
+Height: 5px;
+Width: 5px;
+left:0px;
+} */
+
+.cover_box {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid #c9c9c9;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* transform: scale(0); */
+    overflow: hidden;
+    transition: transform .5s ease, height .2s ease, border-color 0.5s ease;
+}
+
+.cover_box:hover {
+    border-color: #f6f8f6;
+    animation: border-glow 1s infinite alternate;
+}
+  
+@keyframes border-glow {
+    from {
+      border-color: #ffffff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    to {
+      border-color: #f6f8f6;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+}
+
+.cover_box.active-popup{
+    transform: scale(1);
+}
+.cover_box .active{
+    height: 520px;
+}
+.cover_box .form-box{
+    width: 100%;
+    padding: 40px;
+
+}
+.cover_box.active .form-box.login{
+    transition: none;
+    transform: translateX(-400px);
+}
+
+.cover_box.form-box.register{
+    position: absolute;
+    transition: none;
+    transform: translateX(400px) ;
+}
+
+
+
