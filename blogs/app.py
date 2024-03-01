@@ -51,7 +51,19 @@ async def getallblogs():
         raise HTTPException(status_code=500, detail="Internal server error")
     
     
-
+@app.get("/blog/{id}")
+async def getID(id: int):
+    query = "SELECT * FROM 'blogs' WHERE 'id' = %s"
+    
+    try:
+        cursor.execute(query,id,)
+        blog = cursor.fetchall()
+        print(blog)
+        return blog
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error")
     
     
+    
+#change directory to blog    
 #python -m uvicorn app:app --reload --port 3700
