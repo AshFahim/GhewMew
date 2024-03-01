@@ -10,5 +10,4 @@ async def root():
     return {"message": "Auth server is running"}
 
 
-
-#uvicorn app:app --reload --port 3700
+#python -m uvicorn app:app --reload --port 3700
