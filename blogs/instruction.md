@@ -4,7 +4,7 @@
 
 To add data to the `blogs` table using a PUT request with JSON format, follow these steps:
 
-- Create a route in your API server to handle PUT requests at a specific endpoint, e.g., `/blogs`.
+- Create a route in your API server to handle PUT requests at a specific endpoint, e.g., `/addblog`.
 - Parse the incoming JSON data from the request body to extract `title`, `content`, `author`, and `created_at` fields.
 - Validate the incoming data to ensure all required fields are present and have valid values.
 - Execute an SQL query to insert the new blog entry into the `blogs` table, using the extracted data.
@@ -23,7 +23,7 @@ To retrieve all data from the `blogs` table, follow these steps:
 
 To fetch data of a specific blog by its ID, follow these steps:
 
-- Define a route in your API server to handle GET requests with the blog ID specified in the endpoint, e.g., `/blogs/{id}`.
+- Define a route in your API server to handle GET requests with the blog ID specified in the endpoint, e.g., `/blog/{id}`.
 - Extract the blog ID from the request parameters.
 - Execute an SQL query to select the blog entry with the corresponding ID.
 - Format the retrieved data as JSON.
@@ -33,7 +33,7 @@ To fetch data of a specific blog by its ID, follow these steps:
 
 To delete a blog entry with a specific ID, follow these steps:
 
-- Create a route in your API server to handle DELETE requests at a designated endpoint, e.g., `/blogs/{id}`.
+- Create a route in your API server to handle DELETE requests at a designated endpoint, e.g., `/delblog/{id}`.
 - Extract the blog ID from the request parameters.
 - Execute an SQL query to delete the blog entry with the specified ID from the `blogs` table.
 - Return an appropriate response indicating success or failure of the deletion operation.
