@@ -1,9 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
 from lib.db import cursor 
-from fastapi import HTTPException
+from fastapi import  HTTPException
+from pydantic import BaseModel, Field
 
-class Blog:
+
+class Blog(BaseModel):
     title: str
     content: str
     author: str 
@@ -33,11 +35,8 @@ async def add_blog(blog:Blog):
         return {"message": "Blog added successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error")
-    
-    return ("message", "Blog added successfully")
 
-    
-    
+
 
 
 #python -m uvicorn app:app --reload --port 3700
