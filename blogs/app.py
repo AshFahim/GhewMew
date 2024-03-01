@@ -35,8 +35,23 @@ async def add_blog(blog:Blog):
         return {"message": "Blog added successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error")
+    
+    
+@app.get("/blogs")
+async def getallblogs():
+    
+    query = "SELECT * FROM blogs"
+    
+    try:
+        cursor.execute(query)
+        blogs = cursor.fetchall()
+        return blogs
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error")
+    
+    
 
-
-
-
+    
+    
 #python -m uvicorn app:app --reload --port 3700
