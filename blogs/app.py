@@ -53,10 +53,11 @@ async def getallblogs():
     
 @app.get("/blog/{id}")
 async def getID(id: int):
-    query = "SELECT * FROM 'blogs' WHERE 'id' = %s"
+    print(id)
+    query = f"SELECT * FROM blogs WHERE id = {id}"
     
     try:
-        cursor.execute(query,id,)
+        cursor.execute(query)
         blog = cursor.fetchall()
         print(blog)
         return blog
