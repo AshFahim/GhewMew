@@ -12,7 +12,7 @@ connection = MySQLdb.connect(
     host="localhost",
     user="root",
     password="",
-    database="ghewmew",
+    database="test",
     autocommit = True
 )
 
