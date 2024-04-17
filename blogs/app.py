@@ -1,9 +1,16 @@
-import uvicorn
-from fastapi import FastAPI
+
+import os
+from io import BytesIO
+from fastapi import FastAPI, File, UploadFile
+
 from lib.db import cursor 
 from fastapi import  HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
+from PIL import Image
+
+IMAGEDIR = "img/"
+app = FastAPI()
 
 class Blog(BaseModel):
     title: str
@@ -12,7 +19,6 @@ class Blog(BaseModel):
     created_at: str
     
 
-app = FastAPI()
 
 @app.get("/")
 async def root():
@@ -64,7 +70,25 @@ async def getID(id: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error")
     
+@app.post("/upload-image/")
+async def upload_image(blog_id: int, file: UploadFile = File(...)):
+    # Ensure the image directory exists
+    os.makedirs(IMAGEDIR, exist_ok=True)
     
+    # Read the image file
+    image_contents = await file.read()
+    
+    # Open the image using Pillow
+    img = Image.open(BytesIO(image_contents))
+    
+    # Rename the image to its corresponding ID
+    img_filename = f"{blog_id}_{file.filename}"
+    
+    # Save the image to the specified directory
+    img_path = os.path.join(IMAGEDIR, img_filename)
+    img.save(img_path)
+    
+    return {"message": "Image uploaded successfully", "filename": img_filename}
     
 #change directory to blog    
 #python -m uvicorn app:app --reload --port 3700

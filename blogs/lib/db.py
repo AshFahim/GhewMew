@@ -26,7 +26,6 @@ create_tabel_query = """
     `content` varchar(2048) NOT NULL,
     `author` varchar(32) NOT NULL,
     `created_at` varchar(16) NOT NULL,
-    `image_path` varchar(255),
     PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 """
