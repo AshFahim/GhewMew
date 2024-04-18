@@ -28,4 +28,4 @@ class UserAuthenticate(BaseModel):
 class UserAuthenticateResponse(BaseModel):
     status: bool
     token: str
-    
+

@@ -50,5 +50,6 @@ def AuthenticateUser(data):
         print(e)
         return {
             "status": False,
-            "token": None
+            "token": None,
+            "message": "User authentication failed"
         }
