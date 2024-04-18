@@ -8,17 +8,31 @@ from datetime import datetime, timedelta
 from models.RegisterUser import RegisterUser
 from models.AuthUser import AuthenticateUser
 from models.TokenReader import decode_token
-
-
-
 #schemas
 from schemas.user import User, UserSignUp, UserUpdate, UserRemove, UserAuthenticate, UserAuthenticateResponse
+#cors
+from fastapi.middleware.cors import CORSMiddleware
+from config.CORS import origins
 
-#controllers
- 
 
+app = FastAPI() # Create a FastAPI instance
 
-app = FastAPI()
+###################################################################################################
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET","POST","PUT","DELETE","PATCH"],
+    allow_headers=["Authorization", "Content-Type"],
+)
+@app.middleware("http")
+async def add_security_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    return response
+###################################################################################################
+
 
 @app.get("/")
 def greet():
@@ -27,15 +41,21 @@ def greet():
 #to register user
 @app.post("/register/user")
 async def register_user(user: UserSignUp):
+    
     data = {
-        "name": user.username,
+        "name": user.name,
         "email": user.email,
         "password": user.password,
         "user_type": "user",
         "date": dt.datetime.now()
     }
+    payload = {
+                'email': user.email,
+                'exp': datetime.utcnow() + timedelta(hours=3)  # Expiration time
+                }
     if RegisterUser(data) == True:
-        return {"status": True, "message": "User registered successfully"}
+        token = jwt.encode(payload, "secret", algorithm="HS256")
+        return {"status": True, "message": "User registered successfully" , "token": token}
     elif RegisterUser(data) == False:
         return {"status": False, "message": "User registration failed"}
     elif RegisterUser(data) == "Email exists":
@@ -89,7 +109,10 @@ async def remove_user(user_id: int):
 async def read_token(token: str):
     secret_key = "secret"
     response = decode_token(token, secret_key)
-    return response
+    if response["status"]:
+        return True
+    else:
+        return False
 
 #to check frontend is working or not
 @app.get("/api")

@@ -34,7 +34,6 @@ def AuthenticateUser(data):
             # Assuming `data` contains the email and `existing_user` contains the serial
             payload = {
                 'email': data["email"],
-                'serial': existing_user[0],
                 'exp': datetime.utcnow() + timedelta(hours=3)  # Expiration time
                 }
 
