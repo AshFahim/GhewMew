@@ -91,4 +91,4 @@ async def upload_image(blog_id: int, file: UploadFile = File(...)):
     return {"message": "Image uploaded successfully", "filename": img_filename}
     
 #change directory to blog    
-#python -m uvicorn app:app --reload --port 3700
+#python -m uvicorn app:app --reload --port 3400
