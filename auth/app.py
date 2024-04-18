@@ -10,6 +10,7 @@ from models.AuthUser import AuthenticateUser
 from models.TokenReader import decode_token
 
 
+
 #schemas
 from schemas.user import User, UserSignUp, UserUpdate, UserRemove, UserAuthenticate, UserAuthenticateResponse
 
@@ -23,9 +24,9 @@ app = FastAPI()
 def greet():
     return {"message": "Hello World"}
 
-
+#to register user
 @app.post("/register/user")
-def register_user(user: UserSignUp):
+async def register_user(user: UserSignUp):
     data = {
         "name": user.username,
         "email": user.email,
@@ -44,27 +45,30 @@ def register_user(user: UserSignUp):
     else:
         return {"status": False, "message": "User registration failed"}
     
+#to authenticate user    
 @app.post("/login/user")
-def login_user(user: UserAuthenticate):
+async def login_user(user: UserAuthenticate):
     data = {
         "email": user.email,
         "password": user.password
     }
     response = AuthenticateUser(data)
+    print(response)
     if response["status"]:
         return {"status": True, "message": "User authenticated successfully", "token": response["token"]}
     else:
-        return {"status": False, "message": "User authentication failed"}
+        return {"status": False, "message": response["message"]}
     
-
+#to get all users
 @app.get("/users")
-def get_users():
+async def get_users():
     cursor.execute("SELECT * FROM Users")
     users = cursor.fetchall()
     return {"users": users}
 
+#to get a user by id
 @app.get("/users/{user_id}")
-def get_user(user_id: int):
+async def get_user(user_id: int):
     cursor.execute("SELECT * FROM Users WHERE serial = %s", (user_id,))
     user = cursor.fetchone()
     data = {
@@ -74,14 +78,23 @@ def get_user(user_id: int):
     }
     return data 
 
+@app.delete("/users/{user_id}")
+async def remove_user(user_id: int):
+    cursor.execute("DELETE FROM Users WHERE serial = %s", (user_id,))
+    return {"message": "User removed successfully"}
+
+
+#to check token is working or not
 @app.put("/tokenreader/{token}")
-def read_token(token: str):
+async def read_token(token: str):
     secret_key = "secret"
     response = decode_token(token, secret_key)
     return response
 
-
-
+#to check frontend is working or not
+@app.get("/api")
+async def api():
+    return {"message": "API is working"}
 
 
 
