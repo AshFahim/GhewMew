@@ -3,6 +3,8 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 from models import Pet
 from schemas import PetCreate
+from fastapi import HTTPException, UploadFile
+
 
 def create_pet(db: Session, pet_data: PetCreate):
     try:
@@ -34,3 +36,19 @@ def get_pets_by_gender_from_db(db: Session, pet_gender: str) -> List[Optional[Pe
 def get_pets_by_location_from_db(db: Session, location_city: str) -> List[Optional[Pet]]:
     pets = db.query(Pet).filter(Pet.location_city == location_city).all()
     return pets
+
+# Upload pet image 
+def upload_pet_image(db: Session, pet_id: int, image: UploadFile):
+    try:
+        pet = db.query(Pet).filter(Pet.pet_id == pet_id).first()
+        if not pet:
+            raise HTTPException(status_code=404, detail="Pet not found")
+        file_location = f"H:/pet images/{image.filename}"
+        with open(file_location, "wb+") as file_object:
+            file_object.write(image.file.read())
+        pet.pet_image = file_location
+        db.commit()
+        db.refresh(pet)
+    except Exception as e:
+        db.rollback()
+        raise e
