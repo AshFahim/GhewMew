@@ -1,7 +1,7 @@
 import React from "react";
-import { UserContext } from "../context/UserContext";
+//import { UserContext } from "../context/UserContext";
 import ErrorMessage from "./ErrorMessage";
-import AuthContext from "../context/AuthContext";
+import Cookies from "js-cookie";
 
 const Register = () => {
   const [name, setName] = React.useState(""); // [state, setState]
@@ -9,7 +9,7 @@ const Register = () => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [error, setError] = React.useState(null);
-  const { setToken } = React.useContext(UserContext);
+  //const { setToken } = React.useContext(UserContext);
 
   const SubmitRegistration = async () => {
     setError(null); // Reset error
@@ -42,10 +42,13 @@ const Register = () => {
         setError(data.message);
       } else if (data.status === true) {
         console.log(data);
-        console.log(data.token);
+        //set cookie
+
+        Cookies.set("UserToken", data.token);
+        Cookies.set("UserEmail", email);
         //setToken(data.token);
         localStorage.setItem("UserToken", data.token);
-        setToken(data.token);
+        localStorage.setItem("UserEmail", email);
       }
     } catch (error) {
       // Handle network errors or other issues with the request

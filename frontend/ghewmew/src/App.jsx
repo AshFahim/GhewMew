@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Register from "./components/Register";
+import Login from "./components/login";
 
 const App = () => {
   const [message, setMessage] = useState("");
@@ -26,10 +27,23 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <h1>{message}</h1>
-      <Register />
-    </div>
+    <>
+      <h1>Welcome to the App</h1>
+      <p>{message}</p>
+      <div className="columns">
+        <div className="column"></div>
+        <div className="column m-5 is-two-thirds">
+            <div className="columns">
+              <Register /> <Login />
+            </div>
+            <div className="columns">
+              
+            </div>
+        </div>
+        <div className="column"></div>
+      </div>
+      
+    </>
   );
 };
 
