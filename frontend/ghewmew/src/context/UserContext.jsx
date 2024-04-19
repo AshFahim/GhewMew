@@ -8,7 +8,7 @@ export const UserProvider = (props) => {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const response = await fetch("//tokenreader/", {
+        const response = await fetch("http://localhost:3700/tokenreader/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -18,8 +18,6 @@ export const UserProvider = (props) => {
           setToken(null);
           localStorage.removeItem("UserToken");
         }
-        
-
       } catch (error) {
         console.error("Error validating token:", error);
         // Handle error if request fails

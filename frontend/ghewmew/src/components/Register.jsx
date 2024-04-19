@@ -1,6 +1,7 @@
 import React from "react";
 import { UserContext } from "../context/UserContext";
 import ErrorMessage from "./ErrorMessage";
+import AuthContext from "../context/AuthContext";
 
 const Register = () => {
   const [name, setName] = React.useState(""); // [state, setState]
@@ -41,6 +42,9 @@ const Register = () => {
         setError(data.message);
       } else if (data.status === true) {
         console.log(data);
+        console.log(data.token);
+        //setToken(data.token);
+        localStorage.setItem("UserToken", data.token);
         setToken(data.token);
       }
     } catch (error) {
