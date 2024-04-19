@@ -16,6 +16,7 @@ class Pet(Base):
     pet_age = Column(Integer)
     description = Column(String(50))
     location_city = Column(String(10))
+    pet_image = Column(String(200))
 
     owner = relationship("User", back_populates="pets")
 

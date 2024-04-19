@@ -1,6 +1,8 @@
 
-from fastapi import FastAPI, HTTPException,  Depends,Path
-from services import create_pet, get_pet_by_id, get_pets_by_gender_from_db, get_pets_by_location_from_db,  get_pets_by_type_from_db
+from fastapi import FastAPI, HTTPException,  Depends,Path,UploadFile, File
+
+
+from services import create_pet, get_pet_by_id, get_pets_by_gender_from_db, get_pets_by_location_from_db,  get_pets_by_type_from_db, upload_pet_image
 import schemas
 from models import Pet 
 from schemas import PetCreate
@@ -74,3 +76,12 @@ def delete_pet_by_id(pet_id: int, db: Session = Depends(get_db)):
     db.delete(pet)
     db.commit()
     return {"message": "Pet deleted successfully"}
+
+# upload pet image
+@app.post("/pets/{pet_id}/upload_image")
+async def image_upload(pet_id: int, image: UploadFile = File(...), db: Session = Depends(get_db)):
+    try:
+        upload_pet_image(db, pet_id, image)
+        return {"message": "Image uploaded successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
