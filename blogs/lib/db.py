@@ -8,7 +8,7 @@ connection = MySQLdb.connect(
     host = "localhost",
     user = "root",
     password = "",
-    database = "test",
+    database = "ghewmew",
     autocommit = True 
 )
 
